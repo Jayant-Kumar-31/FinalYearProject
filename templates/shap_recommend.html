@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SHAP Crop Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleR.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🔍 SHAP-Based Crop Actions</h1>
+    <button onclick="fetchSHAP()">Get SHAP Recommendations</button>
+    <div id="shap-results" style="margin-top: 20px;"></div>
+
+    <br><a href="/">🏠 Go to Home</a>
+</div>
+
+<script>
+function fetchSHAP() {
+    fetch('/shap-recommend')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById("shap-results").innerText = "Error: " + data.error;
+                return;
+            }
+
+            let html = '<table border="1"><tr><th>Crop Name</th><th>Suitability %</th><th>Actions Needed</th></tr>';
+            data.forEach(row => {
+                html += `<tr>
+                    <td>${row["Crop Name"]}</td>
+                    <td>${row["Suitability Percentage"]}%</td>
+                    <td><ul>${row["Actions Needed"].map(a => `<li>${a}</li>`).join('')}</ul></td>
+                </tr>`;
+            });
+            html += '</table>';
+            document.getElementById("shap-results").innerHTML = html;
+        });
+}
+</script>
+</body>
+</html>

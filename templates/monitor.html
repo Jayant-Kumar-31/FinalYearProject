@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleR.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>📊 Real-time Monitoring</h1>
+
+    <div id="sensor-data" class="sensor-data">
+        {% if data %}
+            <div class="card">🌡️ Temperature: <span class="value">{{ data['temperature'] }} °C</span></div>
+<div class="card">💧 Humidity: <span class="value">{{ data['humidity'] }} %</span></div>
+<div class="card">⚖️ pH : <span class="value">{{ data['ph'] }}</span></div>
+<div class="card">🌱 Soil Moisture: <span class="value">{{ data['soil_moisture'] }}</span></div>
+
+        {% else %}
+            <p>Unable to fetch sensor data!</p>
+        {% endif %}
+    </div>
+
+    <p id="last-updated" style="text-align: center; margin-top: 15px;">Refreshed just now</p>
+    <button onclick="refreshData()">🔄 Refresh</button>
+
+    <br><br>
+    <a href="/recommend">Go to Recommendation</a> |
+    <a href="/guidelines">Go to Guidelines</a> |
+    <a href="{{ url_for('home') }}">🏠 Go to Home</a>
+</div>
+
+<script>
+let lastUpdated = new Date();
+
+function refreshData() {
+    fetch('/fetch-prediction')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                document.getElementById('sensor-data').innerHTML = `<div class="card">🌡️ Temperature: <span class="value">${data.temperature} °C</span></div>
+  <div class="card">💧 Humidity: <span class="value">${data.humidity} %</span></div>
+  <div class="card">⚖️ pH: <span class="value">${data.ph}</span></div>
+  <div class="card">🌱 Soil Moisture: <span class="value">${data.soil_moisture}</span></div>
+`;
+                lastUpdated = new Date();
+                document.getElementById('last-updated').innerText = "Refreshed just now";
+            } else {
+                alert("Failed to fetch data.");
+            }
+        });
+}
+
+function formatElapsedTime(seconds) {
+    if (seconds < 60) {
+        return `Refreshed ${seconds}s ago`;
+    } else {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `Refreshed ${minutes} min${minutes > 1 ? 's' : ''} ${remainingSeconds}s ago`;
+    }
+}
+
+// Update every second
+setInterval(() => {
+    const now = new Date();
+    const secondsAgo = Math.floor((now - lastUpdated) / 1000);
+    document.getElementById('last-updated').innerText = formatElapsedTime(secondsAgo);
+}, 1000);
+</script>
+</body>
+
+</html>

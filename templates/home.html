@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Crop Monitoring System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🌾 Smart Farming Dashboard</h1>
+    <p style="font-size: 18px; text-align: center; margin-bottom: 30px;">
+      This intelligent system utilizes real-time sensor data to monitor soil and environmental conditions,
+      predicts the most suitable crop using machine learning, and provides actionable guidelines for optimal growth.
+    </p>
+
+    <div class="sensor-data">
+      <!-- Flashcards for navigation -->
+      <div class="flashcard">
+        <a href="{{ url_for('monitor') }}">
+          <div class="flashcard-content">
+            <span class="icon">📊</span>
+            <span class="title">Real-time Monitor</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flashcard">
+        <a href="{{ url_for('recommend') }}">
+          <div class="flashcard-content">
+            <span class="icon">🤖</span>
+            <span class="title">Crop Recommendation</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flashcard">
+        <a href="{{ url_for('guidelines') }}">
+          <div class="flashcard-content">
+            <span class="icon">📋</span>
+            <span class="title">Actionable Guidelines</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flashcard">
+        <a href="/shap-page">
+          <div class="flashcard-content">
+            <span class="icon">🔍</span>
+            <span class="title">SHAP Recommendations</span>
+          </div>
+        </a>
+      </div>
+<div class="flashcard">
+  <a href="{{ url_for('about') }}">
+    <div class="flashcard-content">
+      <span class="icon">ℹ️</span>
+      <span class="title">About</span>
+    </div>
+  </a>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>

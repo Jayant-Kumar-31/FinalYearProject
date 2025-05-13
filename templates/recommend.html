@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleR.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🤖 Crop Recommendation</h1>
+    <button id="fetch-btn">Fetch Data and Predict</button>
+
+    <div id="result" class="sensor-data" style="margin-top: 20px;"></div>
+
+    <br>
+   <a href="/monitor">Go to Monitor</a> |
+<a href="/guidelines">Go to Guidelines</a> |
+<a href="{{ url_for('home') }}">🏠 Go to Home</a>
+
+</div>
+
+<script>
+document.getElementById('fetch-btn').onclick = function() {
+    fetch('/fetch-prediction')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('result').innerHTML = "Error: " + data.error;
+            } else {
+                document.getElementById('result').innerHTML = `
+                    <div class="card">🌡️ Temperature: <span class="value">${data.temperature} °C</span></div>
+  <div class="card">💧 Humidity: <span class="value">${data.humidity} %</span></div>
+  <div class="card">⚖️ pH: <span class="value">${data.ph}</span></div>
+  <div class="card">🌱 Soil Moisture: <span class="value">${data.soil_moisture}</span></div>
+  <div class="card predicted">🌾 Predicted Crop: <span class="value">${data.predicted_crop}</span></div>
+
+                `;
+            }
+        })
+};
+</script>
+</body>
+</html>

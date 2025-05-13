@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actionable Guidelines</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleR.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>📋 Crop Guidelines</h1>
+
+
+
+    <form method="POST">
+        <select name="crop" required>
+            <option value="">Select Crop</option>
+            {% for crop in crops %}
+                <option value="{{ crop }}">{{ crop }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+{% if crop %}
+  <p class="subtitle">Guidelines generated for: <strong>{{ crop | capitalize }}</strong></p>
+{% endif %}
+
+
+
+
+    {% if result %}
+    <table >
+        <tr>
+            <th>Parameter</th>
+            <th>Current</th>
+            <th>Ideal Min</th>
+            <th>Ideal Max</th>
+            <th>Action</th>
+        </tr>
+        {% for row in result %}
+        <tr>
+            <td>{{ row['Parameter'] }}</td>
+            <td>{{ row['Current Value'] }}</td>
+            <td>{{ row['Ideal Min'] }}</td>
+            <td>{{ row['Ideal Max'] }}</td>
+            <td><b>{{ row['Recommended Action'] }}</b></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <br>
+   <div style="text-align: center; margin-top: 30px;">
+  <a href="/monitor">Go to Monitor</a> |
+  <a href="/recommend">Go to Recommendation</a> |
+  <a href="{{ url_for('home') }}">🏠 Go to Home</a>
+</div>
+
+</div>
+</body>
+</html>

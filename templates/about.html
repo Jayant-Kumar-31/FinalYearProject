@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About - Smart Crop Monitoring System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .profile-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+    }
+    .profile {
+      text-align: center;
+    }
+    .profile img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #4CAF50;
+    }
+    .name {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About This Project 🌿</h1>
+    <p style="font-size: 18px; text-align: center; max-width: 800px; margin: 0 auto 40px;">
+      The Smart Crop Monitoring System is an IoT-enabled platform that integrates real-time sensor data, machine learning crop predictions, and SHAP-based analysis to provide intelligent agricultural decisions.
+      It supports farmers in selecting the right crops based on real-time environmental data such as temperature, humidity, soil moisture, and pH.
+    </p>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <h3>🌡️ Real-Time Monitoring</h3>
+        <p>Continuously fetches data from sensors using ThingSpeak API to monitor field conditions.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>🤖 Crop Prediction</h3>
+        <p>Utilizes a trained Random Forest model to predict the best crop based on current conditions.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>📋 Actionable Guidelines</h3>
+        <p>Provides recommendations to improve field parameters for better crop yield and health.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>🔍 Explainability with SHAP</h3>
+        <p>Explains why a crop was recommended using SHAP values and helps fine-tune farming strategies.</p>
+      </div>
+    </div>
+
+    <!-- Mentor Section -->
+    <h2 style="text-align: center; margin-top: 60px;">👨‍🏫 Mentor</h2>
+    <div class="profile-section">
+      <div class="profile">
+        <img src="{{ url_for('static', filename='images/vipin_pal.jpg') }}" alt="Dr. Vipin Chandra Pal">
+        <div class="name">Dr. Vipin Chandra Pal</div>
+      </div>
+    </div>
+
+    <!-- Team Members -->
+    <h2 style="text-align: center; margin-top: 40px;">👥 Team Members</h2>
+    <div class="profile-section">
+      <div class="profile">
+        <img src="{{ url_for('static', filename='images/member1.jpg') }}" alt="Member 1">
+        <div class="name">Jayant Kumar</div>
+      </div>
+      <div class="profile">
+        <img src="{{ url_for('static', filename='images/member2.jpg') }}" alt="Member 2">
+        <div class="name">Shivesh Sharma</div>
+      </div>
+      <div class="profile">
+        <img src="{{ url_for('static', filename='images/member3.jpg') }}" alt="Member 3">
+        <div class="name">Ambuj Kr. Singh</div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="{{ url_for('home') }}" class="btn">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
